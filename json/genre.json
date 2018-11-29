@@ -1,0 +1,18 @@
+[
+    {"name": "Black", "code": "black"},
+    {"name": "Death", "code": "death"},
+    {"name": "Doom/Stoner/Sludge", "code": "doom"},
+    {"name": "Electronic/Industrial", "code": "electronic"},
+    {"name": "Experimental/Avant-garde", "code": "avantgarde"},
+    {"name": "Folk/Viking/Pagan", "code": "folk"},
+    {"name": "Gothic", "code": "gothic"},
+    {"name": "Grindcore", "code": "grind"},
+    {"name": "Groove", "code": "groove"},
+    {"name": "Heavy", "code": "heavy"},
+    {"name": "Metalcore/Deathcore", "code": "metalcore"},
+    {"name": "Power", "code": "power"},
+    {"name": "Progressive", "code": "prog"},
+    {"name": "Speed", "code": "speed"},
+    {"name": "Symphonic", "code": "orchestral"},
+    {"name": "Thrash", "code": "thrash"}
+    ]

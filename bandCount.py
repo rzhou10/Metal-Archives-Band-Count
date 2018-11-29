@@ -1,36 +1,36 @@
 import json
-import re
 import csv
-from requests_html import HTMLSession
+from selenium import webdriver
 
-with open("codes.json") as f:
-    data = json.load(f)
+#writes to csv
+def writeToCSV(count, fileName):
+    try:
+        with open("csv/" + fileName + ".csv", "w+", newline='') as csv_file:
+            write = csv.writer(csv_file)
+            for key, value in count.items():
+                write.writerow([key, value])
+    except Exception as e:
+        print(e)
 
-count = {}
+#counts based on criteria from main
+def countBands(fileName, tagId):
+    with open("json/" + fileName + ".json") as f:
+        data = json.load(f)
 
-session = HTMLSession()
+    count = {}
 
-#find specific text to extract.
-for i in range(len(data)):
-    page = session.get("https://www.metal-archives.com/lists/" + data[i]["code"])
-    page.html.render()
+    #find specific text to extract.
+    for i in range(len(data)):
+        driver = webdriver.Chrome()
+        driver.get("https://www.metal-archives.com/lists/" + data[i]["code"])
+        content = driver.find_element_by_id(tagId).text
 
-    contentStr = page.html.search("{} entries")[0]
-    noComma = contentStr.replace(",", "")
-    numArr = re.findall(r"\d+", noComma)
-    count[data[i]["name"]] = numArr[len(numArr) - 1]
+        #get the count
+        bandCount = content.split(" ")
+        if len(bandCount) > 1:
+            count[data[i]["name"]] = bandCount[5]
+            
+        driver.close()
 
-print("Finished all countries.")
-
-countParsed = json.loads(count)
-countData = countParsed[0]
-countedData = open("/bandCount/bandCount.csv", "w")
-csvWriter = csv.writer(countedData)
-
-header = countData[0].keys()
-csvWriter.writerow(header)
-
-for cnt in countData:
-    csvWriter.writerow(cnt.values())
-
-countData.close()
+    print("Finished all items.")
+    writeToCSV(count, fileName)
