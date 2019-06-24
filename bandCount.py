@@ -21,7 +21,7 @@ def countBands(fileName, tagId):
 
     #find specific text to extract.
     for i in range(len(data)):
-        driver = webdriver.Chrome()
+        driver = webdriver.Firefox()
         driver.get("https://www.metal-archives.com/lists/" + data[i]["code"])
         content = driver.find_element_by_id(tagId).text
 
